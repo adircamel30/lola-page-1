@@ -1,1 +1,705 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שיפור למידה באמצעות בינה מלאכותית</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("WssTDTwKtdJD984XH");
+        })();
+    </script>
+    <style>
+        :root {
+            --primary-color: #4a6eb5;
+            --secondary-color: #6e48aa;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            animation: moveBackground 30s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                transform: translateX(0) translateY(0);
+            }
+            100% {
+                transform: translateX(10%) translateY(10%);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background-color: #ff5252;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+        }
+
+        .how-it-works {
+            background-color: var(--white);
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .step:nth-child(1) .progress {
+            width: 100%;
+        }
+
+        .step:nth-child(2) .progress {
+            width: 66%;
+        }
+
+        .step:nth-child(3) .progress {
+            width: 33%;
+        }
+
+        .features {
+            background-color: var(--light-bg);
+        }
+
+        .feature-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .testimonials {
+            background-color: var(--white);
+        }
+
+        .testimonial-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            background-color: var(--light-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            font-size: 5rem;
+            color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            position: relative;
+        }
+
+        .contact-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 110, 181, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            color: #333;
+            border-radius: 50%;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-color);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .footer-text {
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            margin: 0 10px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .step, .feature-card, .testimonial-card {
+                min-width: 100%;
+            }
+
+            .steps, .feature-cards, .testimonial-cards {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation for elements */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Toast notification for form submission */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            z-index: 1;
+            visibility: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 20px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 20px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast">ההודעה נשלחה בהצלחה!</div>
+
+    <header>
+        <div class="container header-container">
+            <img src="images/logo.png" alt="לוגו" class="logo">
+            <nav>
+                <a href="#contact" class="btn">צור קשר</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>תפתחו את הראש! ללמוד חכם יותר ומהר יותר עם בינה מלאכותית</h1>
+            <p class="subtitle">לא צריך לבזבז זמן על קורסים משעממים. קבלו עזרה אישית, פידבק ישר ולעניין, וטיפים מבינה מלאכותית שיעזרו לכם להתקדם.</p>
+            <a href="#contact" class="btn">מתחילים ניסיון בחינם</a>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title fade-in">איך זה עובד</h2>
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>בודקים מה אתם יודעים</h3>
+                    <p>הבינה המלאכותית שלנו תבדוק מה רמת הידע שלכם עכשיו, מה מעניין אתכם ואיך אתם הכי אוהבים ללמוד.</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>בונים לכם תוכנית אישית</h3>
+                    <p>תקבלו תוכנית לימודים עם כל הדברים הכי טובים ומועילים לכם.</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>הבינה המלאכותית עוזרת כל הזמן</h3>
+                    <p>תקבלו פידבק תוך כדי תנועה, תוכלו לראות כמה התקדמתם ולשנות את התוכנית אם צריך.</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title fade-in">מה אפשר לעשות עם זה</h2>
+            <div class="feature-cards">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>בינה מלאכותית בונה לכם את תוכנית הלימודים</h3>
+                    <p>המערכת שלנו לומדת את הסגנון האישי שלכם ובונה תוכנית מותאמת שתתאים לקצב ולסגנון הלימוד האישי שלכם.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>מקבלים עזרה ותמיכה שמתאימה בדיוק לכם</h3>
+                    <p>תמיכה אישית ומענה מיידי לשאלות שלכם. הבינה המלאכותית זמינה 24/7 לעזור לכם בכל שלב בדרך.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>רואים בדיוק איפה אתם עומדים ומה קורה</h3>
+                    <p>דשבורד מפורט עם נתונים בזמן אמת על ההתקדמות שלכם, החוזקות והנקודות לשיפור.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in">מה אנשים אומרים</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">התוכנית הזו שינתה לי את החיים! אני לומד פי שניים יותר מהר ממה שחשבתי שאפשר. הבינה המלאכותית מזהה בדיוק איפה אני נתקע ועוזרת לי לפרוץ קדימה.</p>
+                    <p class="testimonial-author">יובל כהן</p>
+                    <p class="testimonial-role">סטודנט לתואר שני</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">הבינה המלאכותית הזו פשוט מדהימה. היא מתאימה את עצמה אליי ומאפשרת לי ללמוד בצורה שהיא רק שלי. כבר אחרי חודש ראיתי שיפור עצום בציונים.</p>
+                    <p class="testimonial-author">מיכל לוי</p>
+                    <p class="testimonial-role">מנהלת פרויקטים</p>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">בתור הורה, תמיד חיפשתי דרך לעזור לילדים שלי ללמוד בצורה יעילה יותר. המערכת הזו פשוט שינתה את הגישה שלהם ללמידה - הם מתלהבים ללמוד!</p>
+                    <p class="testimonial-author">דוד גולן</p>
+                    <p class="testimonial-role">אבא לשלושה</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">רוצים לדעת עוד?</h2>
+            <form id="contact-form" class="contact-form fade-in">
+                <div class="form-group">
+                    <label for="user_name">שם מלא</label>
+                    <input type="text" id="user_name" name="user_name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="user_email">אימייל</label>
+                    <input type="email" id="user_email" name="user_email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">הודעה</label>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn">שלח הודעה</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="[הכנס כאן את הלינק לפייסבוק שלך]" class="social-link" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="[הכנס כאן את הלינק לאינסטגרם שלך]" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:[הכנס כאן את כתובת המייל שלך]" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="footer-text">אנחנו מאמינים שכל אחד יכול ללמוד בצורה יעילה ומהנה עם הכלים הנכונים. הבינה המלאכותית שלנו נועדה לעזור לכם למצוא את הדרך האישית שלכם להצלחה.</p>
+            <div class="footer-links">
+                <a href="#">מדיניות פרטיות</a>
+                <a href="#">תנאי שימוש</a>
+                <a href="#contact">צור קשר</a>
+            </div>
+            <p class="copyright">© כל הזכויות שמורות 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Handle form submission with EmailJS
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const serviceID = 'service_bpwxycu';
+            const templateID = 'template_ebiirxt';
+            
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(function() {
+                    // Show success message
+                    const toast = document.getElementById('toast');
+                    toast.className = "toast show";
+                    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+                    
+                    // Reset form
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    console.log('שגיאה:', error);
+                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                });
+        });
+
+        // Fade in animation for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                for (let i = 0; i < fadeElements.length; i++) {
+                    const elem = fadeElements[i];
+                    const distInView = elem.getBoundingClientRect().top - window.innerHeight + 100;
+                    if (distInView < 0) {
+                        elem.classList.add('active');
+                    }
+                }
+            };
+            
+            // Initial check on page load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+        });
+
+        // Animate progress bars when in view
+        document.addEventListener('DOMContentLoaded', function() {
+            const steps = document.querySelectorAll('.step');
+            
+            const animateProgressBars = function() {
+                for (let i = 0; i < steps.length; i++) {
+                    const step = steps[i];
+                    const distInView = step.getBoundingClientRect().top - window.innerHeight + 50;
+                    if (distInView < 0) {
+                        const progress = step.querySelector('.progress');
+                        if (i === 0) progress.style.width = '100%';
+                        if (i === 1) progress.style.width = '66%';
+                        if (i === 2) progress.style.width = '33%';
+                    }
+                }
+            };
+            
+            // Initial check on page load
+            setTimeout(animateProgressBars, 500);
+            
+            // Check on scroll
+            window.addEventListener('scroll', animateProgressBars);
+        });
+    </script>
+</body>
+</html>
